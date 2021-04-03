@@ -1,0 +1,139 @@
+  
+
+
+    /*=====================
+        .Fonts
+        ==========================*/
+        @font-face {
+            font-family: 'MontserratBlack';
+            src: url('../fonts/Montserrat/Montserrat-Black.woff2') format('woff2'),
+                url('../fonts/Montserrat/Montserrat-Black.woff') format('woff');
+            font-weight: 900;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'MontserratBold';
+            src: url('../fonts/Montserrat/Montserrat-Bold.woff2') format('woff2'),
+                url('../fonts/Montserrat/Montserrat-Bold.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('../fonts/Montserrat/Montserrat-Light.woff2') format('woff2'),
+                url('../fonts/Montserrat/Montserrat-Light.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+
+        .regularFont{
+            font-family: 'Montserrat';
+        }
+        .boldFont{
+            font-family: 'MontserratBold';
+
+        }
+
+
+    /*=====================
+        .Loader
+        ==========================*/
+    
+        .loader-wrapper {
+            height: 100vh;
+            width: 100vw;
+            background-color: #fff;
+            display: block;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+        
+            }
+            .loader {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 50px;
+                height: 50px;
+                background-color:#f4615e;
+                border-radius: 50%;
+            }
+                .loader::after {
+                    content: '';
+                    position: absolute;
+                    border-radius: 50%;
+                    top: 50%;
+                    left: 50%;
+                    border: 0 solid white;
+                    transform: translate(-50%, -50%);
+                    animation: loading 1s ease-out forwards infinite;
+                    transition: all 0.3s ease;
+                }
+            
+        
+        
+        @keyframes loading {
+            0% {
+                border: 0 solid white;
+                transition: all 0.3s ease;
+            }
+            20% {
+                border: 8px solid white;
+                width: 0;
+                height: 0;
+                transition: all 0.3s ease;
+            }
+            100% {
+                border: 8px solid white;
+                width: 100%;
+                height: 100%;
+                transition: all 0.3s ease;
+            }
+        }
+    
+
+
+
+    .tap-top {
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        position: fixed;
+        bottom: 50px;
+        right: 30px;
+        z-index: 8;
+        display: none;
+        border: 1px solid #fff !important;
+        text-align: center;
+        background: #f4615e !important;
+        text-align: center;
+        border: none;
+        font-size: 22px;
+        padding: 7px;
+        cursor: pointer;
+        color: #fff;
+      }
+        .tap-top.top-cls {
+            bottom: 130px;
+        }
+
+
+
+/*=====================
+        .Custom
+  ==========================*/
+
+
+  body {
+      font-family: "Montserrat" !important;
+  }
