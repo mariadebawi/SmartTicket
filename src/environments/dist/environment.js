@@ -9,6 +9,7 @@ exports.environment = {
     firebaseConfig: {
         apiKey: "AIzaSyCUOJ6zDlGCpQeqAvFrJU32B1_peburKtg",
         authDomain: "smartticket-c6471.firebaseapp.com",
+        databaseURL: "https://smartticket-c6471-default-rtdb.firebaseio.com",
         projectId: "smartticket-c6471",
         storageBucket: "smartticket-c6471.appspot.com",
         messagingSenderId: "500063342297",
