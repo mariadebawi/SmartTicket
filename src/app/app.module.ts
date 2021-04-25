@@ -18,6 +18,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
 
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -33,7 +34,8 @@ import { environment } from '../environments/environment';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
