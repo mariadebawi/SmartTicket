@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CarsService } from './services/cars.service';
+import { CarsService } from '../services/cars.service';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
-import Car from './model/car';
+import Car from '../models/car';
+import Swal from 'sweetalert2';
+import { Subject } from 'rxjs';
+import { LanguageAppFr } from 'src/assets/18in/fr';
+
 
 @Component({
   selector: 'app-cars',
   templateUrl: './cars.component.html',
   styleUrls: ['./cars.component.scss']
 })
-export class CarsComponent implements OnInit {
+export class CarsComponent implements OnInit , OnDestroy {
   closeResult = '';
   url;
   carsList : Car[];
@@ -21,8 +25,10 @@ export class CarsComponent implements OnInit {
   submitted = false;
   car: Car = new Car();
   carUpdated: Car;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private modalService: NgbModal , private formBuilder: FormBuilder , private carsService : CarsService) { }
+  constructor( private modalService: NgbModal , private formBuilder: FormBuilder , private carsService : CarsService) { }
 
   ngOnInit(): void {
     this.voitureForm = this.formBuilder.group({
@@ -33,6 +39,21 @@ export class CarsComponent implements OnInit {
 
   });
 
+  const table = $('#table').DataTable( {
+      paging: false,
+    
+  } );
+ 
+  table.destroy();
+ 
+  this.dtOptions = {
+    pagingType: 'full_numbers',
+    pageLength: 5,
+    dom: 'Bfrtip',
+    responsive: true,
+    language: LanguageAppFr.frensh_datatables,
+
+  }
   this.retrieveCars();
   }
 
@@ -57,11 +78,9 @@ export class CarsComponent implements OnInit {
     }
   }
 
-
-  onChange(deviceValue) {
-    console.log(deviceValue);
-}
-
+  onChange(value : string) {
+   console.log('status')
+  }
 retrieveCars() {
   this.carsService.getAllCars().snapshotChanges().pipe(
     map(changes =>
@@ -72,6 +91,7 @@ retrieveCars() {
   ).subscribe(data => {
     this.carsList = data;
     console.log(this.carsList) 
+    this.dtTrigger.next();
 
   });
 }
@@ -108,6 +128,11 @@ retrieveCars() {
 
         this.carsService.createCar(this.car).then(() => {
           console.log('Created new item successfully!');
+          Swal.fire(
+            'Ajout !',
+            'Votre document est crré avec succée.',
+            'success'
+          )
           this.submitted = true;
         });
     }
@@ -117,19 +142,35 @@ retrieveCars() {
         this.voitureForm.reset();
     }
 
-
     getDate(date){
+      moment.locale('fr-ca'); 
       return moment(date).format('Do MMMM YYYY')
     }
-
     supprimerCar(car){
-        this.carsService.deleteCar(car.key)
-          .then(() => {
-           // this.refreshList.emit();
-           console.log('The tutorial was updated successfully!');
-          })
-          .catch(err => console.log(err));
+      Swal.fire({
+        title: 'Êtes-vous sûr?',
+        text: 'Vous ne pourrez pas récupérer ce document',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Oui, supprimez-le!',
+        cancelButtonText: 'Non, garde-le'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.carsService.updateCar(car.key , {deleted :true})
+          Swal.fire(
+            'Supprimé !',
+            'Votre document imaginaire a été supprimé.',
+            'success'
+          )
       
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire(
+            'Annulé',
+            'Votre document imaginaire est en sécurité :)',
+            'error'
+          )
+        }
+      })
     }
 
     onSubmitUpdated(){
@@ -150,9 +191,19 @@ retrieveCars() {
       })
 
       this.carsService.updateCar(this.carUpdated.key , this.car).then(() => {
-        console.log('Created new item successfully!');
+        Swal.fire(
+          'Modif !',
+          'Votre document est modifié avec succée.',
+          'success'
+        )
         this.submitted = true;
       });
+    }
+
+
+    ngOnDestroy(): void {
+      // Do not forget to unsubscribe the event
+      this.dtTrigger.unsubscribe();
     }
 
 }

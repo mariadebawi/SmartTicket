@@ -40,10 +40,6 @@
             font-family: 'MontserratBold';
 
         }
-
-/*=====================
-        .Custom
-  ==========================*/
   body {
       font-family: "Montserrat" ;
   }
@@ -58,8 +54,10 @@
   .bg-Smart{
     background-color: rgb(233 ,233 ,235);
   }
- 
-  
+
+  .table-responsive {
+    overflow-x: hidden;
+  }
   
   .btn{
     color: #fff;
@@ -75,6 +73,8 @@
         background-color: rgb(170 ,170 ,178);
 
       }
+
+
   }
  
 

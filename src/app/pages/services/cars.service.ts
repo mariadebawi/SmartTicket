@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
-import Car from '../model/car';
+import Car from '../models/car';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +10,11 @@ export class CarsService {
   CarsRef: AngularFireList<Car> = null;
 
   constructor(private db: AngularFireDatabase) {
-    this.CarsRef = db.list(this.dbPath);
+    //this.CarsRef = db.list(this.dbPath);
+    
+    this.CarsRef = db.list(this.dbPath ,ref =>  ref.orderByChild('deleted').equalTo(false));
+
+
   }
 
   getAllCars(): AngularFireList<Car> {

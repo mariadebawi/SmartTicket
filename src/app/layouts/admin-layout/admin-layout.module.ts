@@ -6,9 +6,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
+import { DataTablesModule } from "angular-datatables";
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarsComponent } from '../../pages/cars/cars.component';
+import { DriversComponent } from '../../pages/drivers/drivers.component';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -19,12 +21,13 @@ import { CarsComponent } from '../../pages/cars/cars.component';
     HttpClientModule,
     NgbModule,
     ClipboardModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTablesModule
   ],
   declarations: [
     DashboardComponent,
     CarsComponent,
-  
+    DriversComponent
   ]
 })
 
