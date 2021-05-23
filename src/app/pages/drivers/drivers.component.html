@@ -68,7 +68,7 @@
             <div class="card shadow">
               <div class=" row align-items-center card-header border-0 m-0">
                 <div class="col-8">
-                  <h3 class="mb-0">Liste de voitures</h3>
+                  <h3 class="mb-0">Liste de chaffeurs</h3>
                 </div>
                 <div class="col-4 text-right">
                   <a (click)="open(content)" placement="bottom" ngbTooltip="Ajouter une voiture"  class=" btn btn-sm btn-success btn-add rounded-circle ">
@@ -77,9 +77,9 @@
                 </div>
               </div>
               <div class="table-responsive">
-                <table id="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table align-items-center table-flush">
+                <table class="table align-items-center table-flush">
                   <thead class="thead-light">
-
+                  
                     <tr>
                       <th scope="col">Images</th>
                       <th scope="col">Matricule</th>
@@ -92,7 +92,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let car of carsList; let i=index">
+                    <tr *ngFor="let car of driversList; let i=index">
                       <th scope="row">
                         <div class="media align-items-center">
                           <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
@@ -129,7 +129,7 @@
                             <i class="fas fa-ellipsis-v"></i>
                           </a>
                           <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                            <a class="dropdown-item"  (click)="supprimerCar(car)">Supprimer</a>
+                            <a class="dropdown-item" href="#" (click)="supprimerCar(car)">Supprimer</a>
                             <a class="dropdown-item" (click)="open(contentt , car)">Modifier</a>
                           </div>
                         </div>
@@ -137,7 +137,6 @@
                     </tr>
                
                   </tbody>
-                  
                 </table>
               </div>
             </div>
